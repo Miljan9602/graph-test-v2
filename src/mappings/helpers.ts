@@ -8,7 +8,7 @@ import { Factory as FactoryContract } from '../types/templates/Pair/Factory'
 import { TokenDefinition } from './tokenDefinition'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-export const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+export const FACTORY_ADDRESS = '0x5d370a6189f89603fab67e9c68383e63f7b6a262'
 
 export let ZERO_BI = BigInt.fromI32(0)
 export let ONE_BI = BigInt.fromI32(1)
@@ -113,8 +113,8 @@ export function fetchTokenName(tokenAddress: Address): string {
   return nameValue
 }
 
-// HOT FIX: we cant implement try catch for overflow catching so skip total supply parsing on these tokens that overflow 
-// TODO: find better way to handle overflow 
+// HOT FIX: we cant implement try catch for overflow catching so skip total supply parsing on these tokens that overflow
+// TODO: find better way to handle overflow
 let SKIP_TOTAL_SUPPLY: string[] = [
   "0x0000000000bf2686748e1c0255036e7617e7e8a5"
 ]

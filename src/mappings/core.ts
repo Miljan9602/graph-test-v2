@@ -277,6 +277,12 @@ export function handleSync(event: Sync): void {
 
 export function handleMint(event: Mint): void {
   let transaction = Transaction.load(event.transaction.hash.toHexString())
+
+  // safety check
+  if (transaction === null) {
+    return
+  }
+
   let mints = transaction.mints
   let mint = MintEvent.load(mints[mints.length - 1])
 
@@ -391,6 +397,7 @@ export function handleBurn(event: Burn): void {
   updateTokenDayData(token0 as Token, event)
   updateTokenDayData(token1 as Token, event)
 }
+
 
 export function handleSwap(event: Swap): void {
   let pair = Pair.load(event.address.toHexString())
