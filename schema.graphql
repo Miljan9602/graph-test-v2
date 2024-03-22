@@ -138,6 +138,20 @@ type Transaction @entity {
   swaps: [Swap]!
 }
 
+type PairTransfer @entity {
+  id: ID! # txn hash
+
+  pairAddress: Bytes!
+  fromAddress: Bytes!
+  toAddress: Bytes!
+
+  # creation stats
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  amount: BigDecimal!
+}
+
 type Mint @entity {
   # transaction hash + "-" + index in mints Transaction array
   id: ID!

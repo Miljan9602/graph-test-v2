@@ -8,7 +8,7 @@ import {
   Mint as MintEvent,
   Burn as BurnEvent,
   Swap as SwapEvent,
-  Bundle
+  Bundle, PairTransfer
 } from '../types/schema'
 import { Pair as PairContract, Mint, Burn, Swap, Transfer, Sync } from '../types/templates/Pair/Pair'
 import { updatePairDayData, updateTokenDayData, updateUniswapDayData, updatePairHourData } from './dayUpdates'
@@ -60,6 +60,19 @@ export function handleTransfer(event: Transfer): void {
     transaction.mints = []
     transaction.burns = []
     transaction.swaps = []
+  }
+
+  let pairTransfer = PairTransfer.load(transactionHash)
+
+  if (pairTransfer === null) {
+    pairTransfer = new PairTransfer(transactionHash)
+    pairTransfer.blockNumber = event.block.number
+    pairTransfer.timestamp = event.block.timestamp
+    pairTransfer.pairAddress = event.address
+    pairTransfer.fromAddress = event.params.from
+    pairTransfer.toAddress = event.params.to
+    pairTransfer.amount = event.params.value.toBigDecimal()
+    pairTransfer.save()
   }
 
   // mints
